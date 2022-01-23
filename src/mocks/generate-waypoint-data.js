@@ -2,7 +2,7 @@ import {getRandomInteger} from '../utils.js';
 import dayjs from 'dayjs';
 
 const getRandomWaypointType = () => {
-  const waypointTypes = ['Taxi', 'Bus', 'Train', 'Ship', 'Drive', 'Flight', 'Check-in', 'Sightseeing', 'Restaurant'];
+  const waypointTypes = ['taxi', 'bus', 'train', 'ship', 'drive', 'flight', 'check-in', 'sightseeing', 'restaurant'];
   const randomIndex = getRandomInteger(0, waypointTypes.length - 1);
 
   return waypointTypes[randomIndex];
@@ -52,15 +52,15 @@ const getOffersByType = (type) => {
   );
 
   const offersByType = {
-    'Taxi': getRandomeOffers(),
-    'Bus': getRandomeOffers(),
-    'Train': getRandomeOffers(),
-    'Ship': getRandomeOffers(),
-    'Drive': getRandomeOffers(),
-    'Flight': getRandomeOffers(),
-    'Check-in': getRandomeOffers(),
-    'Sightseeing': getRandomeOffers(),
-    'Restaurant': getRandomeOffers(),
+    'taxi': getRandomeOffers(),
+    'bus': getRandomeOffers(),
+    'train': getRandomeOffers(),
+    'ship': getRandomeOffers(),
+    'drive': getRandomeOffers(),
+    'flight': getRandomeOffers(),
+    'check-in': getRandomeOffers(),
+    'sightseeing': getRandomeOffers(),
+    'restaurant': getRandomeOffers(),
   };
 
   return offersByType[type];

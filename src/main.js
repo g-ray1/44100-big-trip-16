@@ -2,9 +2,9 @@ import {renderTemplate, RenderPosition} from './render.js';
 import {createMenuTemplate} from './view/menu-view.js';
 import {createFilterTemplate} from './view/filter-view.js';
 import {createSortingTemplate} from './view/sorting-view.js';
+import {createWaypointsContainer} from './view/waypoint-view.js';
 import {createWaypointTemplate} from './view/waypoint-view.js';
 import {createEditFormTemplate} from './view/edit-form-view.js';
-import {createAddFormTemplate} from './view/add-form-view.js';
 import {getRandomeWaypointData} from './mocks/generate-waypoint-data.js';
 
 const menu = document.querySelector('.trip-controls__navigation');
@@ -18,9 +18,10 @@ renderTemplate(menu, RenderPosition.BEFOREEND, createMenuTemplate());
 renderTemplate(filters, RenderPosition.BEFOREEND, createFilterTemplate(waypoints));
 renderTemplate(content, RenderPosition.BEFOREEND, createSortingTemplate());
 renderTemplate(content, RenderPosition.BEFOREEND, createEditFormTemplate(waypoints[0]));
+renderTemplate(content, RenderPosition.BEFOREEND, createWaypointsContainer());
+
+const waypointsContainer = document.querySelector('.trip-events__list');
 
 for (let i = 1; i < waypoints.length; i++) {
-  renderTemplate(content, RenderPosition.BEFOREEND, createWaypointTemplate(waypoints[i]));
+  renderTemplate(waypointsContainer, RenderPosition.BEFOREEND, createWaypointTemplate(waypoints[i]));
 }
-
-renderTemplate(content, RenderPosition.BEFOREEND, createAddFormTemplate());
