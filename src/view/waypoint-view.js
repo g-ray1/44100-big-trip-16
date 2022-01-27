@@ -1,6 +1,4 @@
-const createWaypointsContainer = () => (
-  '<ul class="trip-events__list"></ul>'
-);
+import { createElement } from '../render.js';
 
 const createWaypointTemplate = (waypoint) => (
   `<li class="trip-events__item">
@@ -43,4 +41,28 @@ const createWaypointTemplate = (waypoint) => (
     </li>`
 );
 
-export {createWaypointsContainer, createWaypointTemplate};
+class WaypointView {
+  #element = null;
+  #elementData = null;
+
+  constructor(elementData) {
+    this.#elementData = elementData;
+  }
+
+  get template() {
+    return createWaypointTemplate(this.#elementData);
+  }
+
+  get element() {
+    if (!this.#element) {
+      this.#element = createElement(this.template);
+    }
+    return this.#element;
+  }
+
+  removeElement() {
+    this.#element = null;
+  }
+}
+
+export default WaypointView;
