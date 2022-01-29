@@ -1,4 +1,4 @@
-import {renderElement, RenderPosition, remove, replace} from './utils/render.js';
+import {renderElement, RenderPosition, replace} from './utils/render.js';
 import MenuView from './view/menu-view.js';
 import FiltrationView from './view/filter-view.js';
 import SortingView from './view/sorting-view.js';
@@ -6,7 +6,6 @@ import EditFormView from './view/edit-form-view.js';
 import WaypointsList from './view/waypoints-list-view.js';
 import WaypointView from './view/waypoint-view.js';
 import {getRandomeWaypointData} from './mocks/generate-waypoint-data.js';
-import AddFormView from './view/add-form-view.js';
 
 const menuContainer = document.querySelector('.trip-controls__navigation');
 const filtersContainer = document.querySelector('.trip-controls__filters');
