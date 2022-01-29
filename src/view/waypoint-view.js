@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractViewClass from './abstract-view-class';
 
 const createWaypointTemplate = (waypoint) => (
   `<li class="trip-events__item">
@@ -41,11 +41,11 @@ const createWaypointTemplate = (waypoint) => (
     </li>`
 );
 
-class WaypointView {
-  #element = null;
+class WaypointView extends AbstractViewClass {
   #elementData = null;
 
   constructor(elementData) {
+    super();
     this.#elementData = elementData;
   }
 
@@ -53,15 +53,13 @@ class WaypointView {
     return createWaypointTemplate(this.#elementData);
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
+  #rollUpclickHandler = () => {
+    this._callback.rollUpClick();
   }
 
-  removeElement() {
-    this.#element = null;
+  setClickHandler = (callback) => {
+    this._callback.rollUpClick = callback;
+    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#rollUpclickHandler);
   }
 }
 

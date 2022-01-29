@@ -1,4 +1,4 @@
-import {renderElement, RenderPosition} from './render.js';
+import {renderElement, RenderPosition, remove, replace} from './utils/render.js';
 import MenuView from './view/menu-view.js';
 import FiltrationView from './view/filter-view.js';
 import SortingView from './view/sorting-view.js';
@@ -6,6 +6,7 @@ import EditFormView from './view/edit-form-view.js';
 import WaypointsList from './view/waypoints-list-view.js';
 import WaypointView from './view/waypoint-view.js';
 import {getRandomeWaypointData} from './mocks/generate-waypoint-data.js';
+import AddFormView from './view/add-form-view.js';
 
 const menuContainer = document.querySelector('.trip-controls__navigation');
 const filtersContainer = document.querySelector('.trip-controls__filters');
@@ -14,10 +15,10 @@ const contentContainer = document.querySelector('.trip-events');
 const WAYPOINTS_COUNT = 20;
 const waypoints = Array.from({length: WAYPOINTS_COUNT}, getRandomeWaypointData);
 
-renderElement(menuContainer, RenderPosition.BEFOREEND, new MenuView().element);
-renderElement(filtersContainer, RenderPosition.BEFOREEND, new FiltrationView().element);
-renderElement(contentContainer, RenderPosition.BEFOREEND, new SortingView().element);
-renderElement(contentContainer, RenderPosition.BEFOREEND, new WaypointsList().element);
+renderElement(menuContainer, RenderPosition.BEFOREEND, new MenuView());
+renderElement(filtersContainer, RenderPosition.BEFOREEND, new FiltrationView());
+renderElement(contentContainer, RenderPosition.BEFOREEND, new SortingView());
+renderElement(contentContainer, RenderPosition.BEFOREEND, new WaypointsList());
 
 const waypointsContainer = document.querySelector('.trip-events__list');
 
@@ -26,34 +27,28 @@ const renderWaypoint = (counter) => {
   const editForm = new EditFormView(waypoints[counter]);
 
   const openEditForm = () => {
-    waypointsContainer.replaceChild(editForm.element, waypointItem.element);
+    replace(editForm, waypointItem);
   };
 
   const closeEditForm = () => {
-    waypointsContainer.replaceChild(waypointItem.element, editForm.element);
+    replace(waypointItem, editForm);
   };
 
-  waypointItem.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
+  waypointItem.setClickHandler(() => {
     openEditForm();
   });
 
-  editForm.element.querySelector('.event__rollup-btn').addEventListener('click', () => {
+  editForm.setClickHandler(() => {
     closeEditForm();
   });
 
-  editForm.element.querySelector('form').addEventListener('submit', (evt) => {
-    evt.preventDefault();
+  editForm.setSubmitHandler(() => {
     closeEditForm();
   });
 
-  renderElement(waypointsContainer, RenderPosition.BEFOREEND, waypointItem.element);
+  renderElement(waypointsContainer, RenderPosition.BEFOREEND, waypointItem);
 };
 
-renderWaypoint(0);
-
-/*
 for (let i = 0; i < waypoints.length; i++) {
-
-  renderElement(contentContainer, RenderPosition.BEFOREEND, new EditFormView(waypoints[i]).element);
+  renderWaypoint(i);
 }
-*/

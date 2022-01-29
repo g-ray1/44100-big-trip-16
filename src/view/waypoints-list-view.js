@@ -1,23 +1,15 @@
-import { createElement } from '../render.js';
+import AbstractViewClass from './abstract-view-class';
 
 const createWaypointsContainer = () => (
   '<ul class="trip-events__list"></ul>'
 );
 
-class WaypointsList {
-  #element = null;
+class WaypointsList extends AbstractViewClass{
 
   get template() {
     return createWaypointsContainer();
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-
-    return this.#element;
-  }
 }
 
 export default WaypointsList;

@@ -1,3 +1,5 @@
+import AbstractViewClass from './abstract-view-class';
+
 const createAddFormTemplate = () => {
 
   const renderDestinationsList = () => {
@@ -126,4 +128,12 @@ const createAddFormTemplate = () => {
   </form>`;
 };
 
-export {createAddFormTemplate};
+class AddFormView extends AbstractViewClass{
+
+  get template() {
+    return createAddFormTemplate();
+  }
+
+}
+
+export default AddFormView;

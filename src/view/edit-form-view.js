@@ -1,4 +1,4 @@
-import { createElement } from '../render.js';
+import AbstractViewClass from './abstract-view-class';
 
 const createEditFormTemplate = (data) => {
 
@@ -148,11 +148,11 @@ const createEditFormTemplate = (data) => {
             </div>`;
 };
 
-class EditFormView {
-  #element = null;
+class EditFormView extends AbstractViewClass{
   #elementData = null;
 
   constructor(elementData) {
+    super();
     this.#elementData = elementData;
   }
 
@@ -160,15 +160,23 @@ class EditFormView {
     return createEditFormTemplate(this.#elementData);
   }
 
-  get element() {
-    if (!this.#element) {
-      this.#element = createElement(this.template);
-    }
-    return this.#element;
+  #rollUpClickHandler = () => {
+    this._callback.rollUpClick();
   }
 
-  removeElement() {
-    this.#element = null;
+  #submitHandler = (evt) => {
+    evt.preventDefault();
+    this._callback.submit();
+  }
+
+  setClickHandler = (callback) => {
+    this._callback.rollUpClick = callback;
+    this.element.querySelector('.event__rollup-btn').addEventListener('click', this.#rollUpClickHandler);
+  }
+
+  setSubmitHandler = (callback) => {
+    this._callback.submit = callback;
+    this.element.querySelector('form').addEventListener('submit', this.#submitHandler);
   }
 }
 
